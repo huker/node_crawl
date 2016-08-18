@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <p>图片大全</p>
+    <button id="btn">click</button>
+    <div id="imgbox"></div>
+</div>
+<script src="jquery.min.js"></script>
+<script>
+    $(function(){
+        console.log('1')
+        $('#btn').click(function(){
+            $.ajax({
+                type:"GET",
+                url:"/api/imgData",
+                success:function(data){
+                    var html = '';
+                    var data = data.slice(1,-1);
+                    var imgArr = data.split(',');
+                    $('#imgbox').html('');
+                    $(imgArr).each(function(index,ele){
+                        var ele = ele.slice(1,-1);
+                        html += "<img class='col-md-4' src='img/"+ele+"'>";
+                    });
+                    $('#imgbox').append(html);
+                }
+            })
+        })
+
+    })
+</script>
+</body>
+</html>
